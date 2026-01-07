@@ -5,7 +5,7 @@
  * Displays daily nutrition data with meals and summaries
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CalendarIcon } from '@heroicons/react/24/outline';
@@ -28,10 +28,19 @@ import { pageFadeIn, cardStagger } from '../../utils/animations';
 export default function DashboardPage() {
   const router = useRouter();
   const { session, isLoading: authLoading } = useAuth();
-  const { nutritionData, isLoading: dataLoading, error, selectedDate } = useNutritionData();
+  const { nutritionData, isLoading: dataLoading, error, selectedDate, refresh } = useNutritionData();
   const { isOpen, openCalendar, closeCalendar, selectDate, goToToday, isToday } = useCalendar();
 
   const isTodaySelected = isToday(selectedDate);
+
+  // Pull-to-refresh state
+  const [pullDistance, setPullDistance] = useState(0);
+  const [isPulling, setIsPulling] = useState(false);
+  const touchStartY = useRef(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Pull-to-refresh threshold (in pixels)
+  const PULL_THRESHOLD = 80;
 
   /**
    * Redirect to login if not authenticated
@@ -41,6 +50,52 @@ export default function DashboardPage() {
       router.push('/');
     }
   }, [session, authLoading, router]);
+
+  /**
+   * Pull-to-refresh handlers
+   */
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      // Only activate if scrolled to top
+      if (container.scrollTop === 0) {
+        touchStartY.current = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (container.scrollTop !== 0 || dataLoading) return;
+
+      const touchY = e.touches[0].clientY;
+      const distance = touchY - touchStartY.current;
+
+      if (distance > 0) {
+        setIsPulling(true);
+        // Apply diminishing returns for pull distance
+        setPullDistance(Math.min(distance * 0.5, PULL_THRESHOLD * 1.5));
+      }
+    };
+
+    const handleTouchEnd = async () => {
+      if (pullDistance > PULL_THRESHOLD) {
+        await refresh();
+      }
+      setIsPulling(false);
+      setPullDistance(0);
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [pullDistance, dataLoading, refresh, PULL_THRESHOLD]);
 
   /**
    * Show loading spinner during auth check
@@ -124,11 +179,30 @@ export default function DashboardPage() {
    */
   return (
     <motion.div
-      className="min-h-screen p-4 md:p-8"
+      ref={containerRef}
+      className="min-h-screen p-4 md:p-8 overflow-y-auto"
       variants={pageFadeIn}
       initial="hidden"
       animate="visible"
+      style={{
+        transform: isPulling ? `translateY(${pullDistance}px)` : undefined,
+        transition: isPulling ? 'none' : 'transform 0.2s ease-out',
+      }}
     >
+      {/* Pull-to-refresh indicator */}
+      {isPulling && (
+        <div
+          className="fixed top-0 left-0 right-0 flex justify-center items-center pointer-events-none z-50"
+          style={{ height: `${pullDistance}px` }}
+        >
+          <div className="glass-card px-4 py-2 rounded-full">
+            <span className="text-white text-sm">
+              {pullDistance > PULL_THRESHOLD ? 'Release to refresh' : 'Pull to refresh'}
+            </span>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
@@ -194,14 +268,21 @@ export default function DashboardPage() {
               />
 
               {/* Charts Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <GlassCard className="min-h-[400px]">
-                  <MacroDonutChart macros={nutritionData.summary.consumed} />
-                </GlassCard>
-                <GlassCard className="min-h-[400px]">
-                  <MealBarChart meals={nutritionData.meals} />
-                </GlassCard>
-              </div>
+              <motion.div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+              >
+                <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.3 } } }}>
+                  <GlassCard className="min-h-[400px]">
+                    <MacroDonutChart macros={nutritionData.summary.consumed} />
+                  </GlassCard>
+                </motion.div>
+                <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.3 } } }}>
+                  <GlassCard className="min-h-[400px]">
+                    <MealBarChart meals={nutritionData.meals} />
+                  </GlassCard>
+                </motion.div>
+              </motion.div>
 
               {/* Meals Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

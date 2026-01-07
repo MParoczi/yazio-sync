@@ -10,7 +10,7 @@ import type {
   MacroValues,
   DailySummary,
 } from '../../types/nutrition';
-import { MEAL_TYPES, type MealType } from '../../utils/constants';
+import { MEAL_TYPES } from '../../utils/constants';
 import { calculateRemaining } from '../../utils/macroCalculations';
 import { formatDateForAPI } from '../../utils/formatters';
 

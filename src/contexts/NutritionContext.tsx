@@ -91,12 +91,12 @@ export function NutritionProvider({ children }: NutritionProviderProps) {
     nutritionCache.invalidate(selectedDate);
 
     // Show loading toast
-    const toastId = toast.loading('Refreshing nutrition data...');
+    toast.loading('Refreshing nutrition data...');
 
     try {
       await fetchData(selectedDate, true);
       toast.success('Data refreshed successfully');
-    } catch (err) {
+    } catch {
       toast.error('Failed to refresh data');
     }
   }, [selectedDate, fetchData]);

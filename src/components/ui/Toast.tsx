@@ -6,7 +6,7 @@
 'use client';
 
 import React from 'react';
-import { Toaster, toast as hotToast, type Toast as HotToast } from 'react-hot-toast';
+import { Toaster, toast as hotToast } from 'react-hot-toast';
 
 /**
  * Custom toast wrapper functions

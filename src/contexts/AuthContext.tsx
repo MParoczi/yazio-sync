@@ -5,7 +5,7 @@
  * Provides global authentication state and methods for login/logout
  */
 
-import { createContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import type { AuthContextValue, UserSession, Credentials } from '../types';
 import { authenticateUser } from '../services/yazio/auth';
@@ -88,22 +88,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   /**
-   * Periodic token expiration check
-   */
-  useEffect(() => {
-    if (!session) return;
-
-    const interval = setInterval(() => {
-      if (isSessionExpired(session)) {
-        handleLogout();
-        toast.error('Your session has expired. Please log in again.');
-      }
-    }, TOKEN_CHECK_INTERVAL);
-
-    return () => clearInterval(interval);
-  }, [session]);
-
-  /**
    * Login method
    */
   const handleLogin = async (credentials: Credentials, rememberMe: boolean): Promise<void> => {
@@ -147,7 +131,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   /**
    * Logout method
    */
-  const handleLogout = async (): Promise<void> => {
+  const handleLogout = useCallback(async (): Promise<void> => {
     try {
       // Clear stored token
       await clearToken();
@@ -164,7 +148,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
       console.error('Logout error:', error);
       toast.error('Error during logout. Please try again.');
     }
-  };
+  }, [router]);
+
+  /**
+   * Periodic token expiration check
+   */
+  useEffect(() => {
+    if (!session) return;
+
+    const interval = setInterval(() => {
+      if (isSessionExpired(session)) {
+        handleLogout();
+        toast.error('Your session has expired. Please log in again.');
+      }
+    }, TOKEN_CHECK_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [session, handleLogout]);
 
   const contextValue: AuthContextValue = {
     session,

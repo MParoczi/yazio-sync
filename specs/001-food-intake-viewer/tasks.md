@@ -161,7 +161,7 @@ Single Next.js project structure:
 - [X] T061 [US2] Add loading state to dashboard in `src/app/dashboard/page.tsx`: show LoadingSpinner overlay while `isLoading === true`
 - [X] T062 [US2] Add error state to dashboard in `src/app/dashboard/page.tsx`: show error message with retry button if `error !== null`, use toast for transient errors
 - [X] T063 [US2] Wrap app with NutritionProvider in `src/app/layout.tsx`: add NutritionContext provider inside AuthProvider, before children
-- [ ] T064 [US2] Add pull-to-refresh for mobile in `src/app/dashboard/page.tsx`: detect pull-down gesture on touchscreen, trigger `refresh()`, show loading indicator
+- [X] T064 [US2] Add pull-to-refresh for mobile in `src/app/dashboard/page.tsx`: detect pull-down gesture on touchscreen, trigger `refresh()`, show loading indicator
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently. Users can log in, see today's nutrition data, refresh manually, and log out.
 
@@ -273,20 +273,20 @@ Single Next.js project structure:
 
 ### Animations & Micro-interactions
 
-- [ ] T097 [P] Add page transition animations to dashboard in `src/app/dashboard/page.tsx`: fade in on mount using Framer Motion
-- [ ] T098 [P] Add stagger animations to meal sections in `src/app/dashboard/page.tsx`: animate meal cards sequentially with slight delay using Framer Motion
-- [ ] T099 [P] Add hover animations to buttons in `src/components/ui/` and `src/components/auth/`: scale on hover, press feedback using Framer Motion or CSS transitions
-- [ ] T100 [P] Add input focus animations in `src/components/auth/LoginForm.tsx`: smooth focus ring transitions, glassmorphism glow effect
+- [X] T097 [P] Add page transition animations to dashboard in `src/app/dashboard/page.tsx`: fade in on mount using Framer Motion
+- [X] T098 [P] Add stagger animations to meal sections in `src/app/dashboard/page.tsx`: animate meal cards sequentially with slight delay using Framer Motion
+- [X] T099 [P] Add hover animations to buttons in `src/components/ui/` and `src/components/auth/`: scale on hover, press feedback using Framer Motion or CSS transitions
+- [X] T100 [P] Add input focus animations in `src/components/auth/LoginForm.tsx`: smooth focus ring transitions, glassmorphism glow effect
 - [ ] T101 [P] Add loading skeleton animations to dashboard in `src/app/dashboard/page.tsx`: shimmer effect for DailySummaryCard and MealSections while loading
 
 ### Error Handling & Edge Cases
 
 - [ ] T102 [P] Add network error handling across all API calls in `src/services/yazio/`: detect offline state, show toast, enable retry, display cached data when available
 - [ ] T103 [P] Add API error handling in `src/services/yazio/`: parse error responses, show user-friendly messages, handle rate limiting with exponential backoff
-- [ ] T104 [P] Add token expiration handling in `src/contexts/AuthContext.tsx`: detect expired token, auto-refresh if possible, redirect to login with message if refresh fails
-- [ ] T105 [P] Add long text overflow handling in `src/components/dashboard/FoodItemList.tsx`: ellipsis for long food names, tooltip on hover showing full name
+- [X] T104 [P] Add token expiration handling in `src/contexts/AuthContext.tsx`: detect expired token, auto-refresh if possible, redirect to login with message if refresh fails
+- [X] T105 [P] Add long text overflow handling in `src/components/dashboard/FoodItemList.tsx`: ellipsis for long food names, tooltip on hover showing full name
 - [ ] T106 [P] Add special character encoding in `src/services/export/txtExporter.ts`: properly encode Unicode characters, handle newlines in food names
-- [ ] T107 [P] Add "no goals set" handling in `src/components/dashboard/DailySummaryCard.tsx`: hide remaining values or show "No goals set" message when user has no macro goals
+- [X] T107 [P] Add "no goals set" handling in `src/components/dashboard/DailySummaryCard.tsx`: hide remaining values or show "No goals set" message when user has no macro goals
 
 ### Performance Optimizations
 
@@ -294,30 +294,30 @@ Single Next.js project structure:
 - [ ] T109 [P] Add useMemo for macro calculations in `src/app/dashboard/page.tsx`: memoize summary calculations, meal totals
 - [ ] T110 [P] Add lazy loading for charts in `src/app/dashboard/page.tsx`: React.lazy() to code-split Recharts, load charts only when needed
 - [ ] T111 [P] Optimize cache invalidation in `src/services/storage/cache.ts`: cleanup expired entries periodically, limit cache size
-- [ ] T112 [P] Add debouncing to refresh button in `src/components/ui/RefreshButton.tsx`: prevent spam clicking, 1-second debounce
+- [X] T112 [P] Add debouncing to refresh button in `src/components/ui/RefreshButton.tsx`: prevent spam clicking, 1-second debounce
 
 ### Accessibility Enhancements
 
-- [ ] T113 [P] Add ARIA labels to interactive elements across all components: buttons, inputs, charts, modal dialogs
+- [X] T113 [P] Add ARIA labels to interactive elements across all components: buttons, inputs, charts, modal dialogs
 - [ ] T114 [P] Add keyboard navigation to DateSelector in `src/components/calendar/DateSelector.tsx`: arrow keys for date navigation, Enter to select, Escape to close
 - [ ] T115 [P] Add keyboard navigation to modals in `src/components/calendar/DateRangePicker.tsx`: trap focus, Escape to close, Tab cycling
-- [ ] T116 [P] Add focus indicators to all interactive elements: ensure 2px outline on focus, high contrast, visible on glass backgrounds
+- [X] T116 [P] Add focus indicators to all interactive elements: ensure 2px outline on focus, high contrast, visible on glass backgrounds
 - [ ] T117 [P] Add screen reader announcements for dynamic content: announce date changes, data loading, errors using aria-live regions
 - [ ] T118 Verify WCAG AA contrast ratios in `src/app/globals.css`: test all text/background combinations, adjust glassmorphism opacity if needed (target 4.5:1 minimum)
 
 ### Documentation & Code Quality
 
 - [ ] T119 [P] Add JSDoc comments to all services in `src/services/`: document function parameters, return types, error conditions
-- [ ] T120 [P] Add JSDoc comments to all hooks in `src/hooks/`: document hook usage, dependencies, return values
+- [X] T120 [P] Add JSDoc comments to all hooks in `src/hooks/`: document hook usage, dependencies, return values
 - [ ] T121 [P] Add component prop documentation in `src/components/`: PropTypes or TypeScript interface comments
 - [ ] T122 [P] Update README.md with setup instructions, available scripts, architecture overview, deployment guide
-- [ ] T123 [P] Code cleanup and formatting: run ESLint, fix warnings, ensure consistent code style across all files
-- [ ] T124 [P] Remove console.log statements: clean up debug logs, replace with proper error handling or remove entirely
+- [X] T123 [P] Code cleanup and formatting: run ESLint, fix warnings, ensure consistent code style across all files
+- [X] T124 [P] Remove console.log statements: clean up debug logs, replace with proper error handling or remove entirely
 
 ### Final Validation
 
-- [ ] T125 Run production build: `yarn build`, verify no TypeScript errors, no build warnings, bundle size acceptable
-- [ ] T126 Run ESLint: `yarn lint`, fix all errors and warnings
+- [X] T125 Run production build: `yarn build`, verify no TypeScript errors, no build warnings, bundle size acceptable
+- [X] T126 Run ESLint: `yarn lint`, fix all errors and warnings
 - [ ] T127 Manual testing of all 5 user stories: verify each story's acceptance criteria independently
 - [ ] T128 Cross-browser testing: test on Chrome, Firefox, Safari, Edge (latest versions)
 - [ ] T129 Mobile responsiveness testing: test on iOS Safari, Android Chrome, verify 320px-2560px range

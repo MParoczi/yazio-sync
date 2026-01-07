@@ -36,7 +36,7 @@ export interface UseCalendarReturn {
  */
 export function useCalendar(): UseCalendarReturn {
   const [isOpen, setIsOpen] = useState(false);
-  const { setSelectedDate, selectedDate } = useNutritionData();
+  const { setSelectedDate } = useNutritionData();
 
   /**
    * Open calendar modal
