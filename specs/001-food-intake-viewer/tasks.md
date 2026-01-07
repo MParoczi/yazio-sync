@@ -250,18 +250,18 @@ Single Next.js project structure:
 
 ### Implementation for User Story 5
 
-- [ ] T085 [P] [US5] Create MacroDonutChart component in `src/components/charts/MacroDonutChart.tsx`: Recharts PieChart/DonutChart, 3 segments (carbs, protein, fat), calculate percentages from consumed macros
-- [ ] T086 [US5] Add custom tooltip to MacroDonutChart in `src/components/charts/MacroDonutChart.tsx`: glassmorphism styled tooltip, show macro name, grams, percentage
-- [ ] T087 [US5] Add responsive sizing to MacroDonutChart in `src/components/charts/MacroDonutChart.tsx`: ResponsiveContainer, adjust inner/outer radius for mobile, touch-friendly segments
-- [ ] T088 [US5] Add empty state to MacroDonutChart in `src/components/charts/MacroDonutChart.tsx`: show message when no macro data, center aligned with EmptyState component
-- [ ] T089 [P] [US5] Create MealBarChart component in `src/components/charts/MealBarChart.tsx`: Recharts BarChart, 4 bars (breakfast, lunch, dinner, snack), Y-axis = calories, X-axis = meal names
-- [ ] T090 [US5] Add custom tooltip to MealBarChart in `src/components/charts/MealBarChart.tsx`: glassmorphism styled tooltip, show meal name and exact calorie value
-- [ ] T091 [US5] Add responsive sizing to MealBarChart in `src/components/charts/MealBarChart.tsx`: ResponsiveContainer, adjust bar width and axis labels for mobile, touch-friendly bars
-- [ ] T092 [US5] Add empty state to MealBarChart in `src/components/charts/MealBarChart.tsx`: show message when no meal data, centered with EmptyState component
-- [ ] T093 [US5] Create charts section in dashboard in `src/app/dashboard/page.tsx`: add section above meals, two-column layout (donut + bar) on desktop, stacked on mobile
-- [ ] T094 [US5] Add chart data preparation in dashboard in `src/app/dashboard/page.tsx`: extract macro values and meal calories from `nutritionData`, pass as props to charts
-- [ ] T095 [US5] Add chart update animations in `src/components/charts/MacroDonutChart.tsx` and `MealBarChart.tsx`: animate data changes when date changes, use Recharts built-in animations
-- [ ] T096 [US5] Add glassmorphism container to charts in `src/app/dashboard/page.tsx`: wrap charts in GlassCard components for cohesive design
+- [X] T085 [P] [US5] Create MacroDonutChart component in `src/components/charts/MacroDonutChart.tsx`: Recharts PieChart/DonutChart, 3 segments (carbs, protein, fat), calculate percentages from consumed macros
+- [X] T086 [US5] Add custom tooltip to MacroDonutChart in `src/components/charts/MacroDonutChart.tsx`: glassmorphism styled tooltip, show macro name, grams, percentage
+- [X] T087 [US5] Add responsive sizing to MacroDonutChart in `src/components/charts/MacroDonutChart.tsx`: ResponsiveContainer, adjust inner/outer radius for mobile, touch-friendly segments
+- [X] T088 [US5] Add empty state to MacroDonutChart in `src/components/charts/MacroDonutChart.tsx`: show message when no macro data, center aligned with EmptyState component
+- [X] T089 [P] [US5] Create MealBarChart component in `src/components/charts/MealBarChart.tsx`: Recharts BarChart, 4 bars (breakfast, lunch, dinner, snack), Y-axis = calories, X-axis = meal names
+- [X] T090 [US5] Add custom tooltip to MealBarChart in `src/components/charts/MealBarChart.tsx`: glassmorphism styled tooltip, show meal name and exact calorie value
+- [X] T091 [US5] Add responsive sizing to MealBarChart in `src/components/charts/MealBarChart.tsx`: ResponsiveContainer, adjust bar width and axis labels for mobile, touch-friendly bars
+- [X] T092 [US5] Add empty state to MealBarChart in `src/components/charts/MealBarChart.tsx`: show message when no meal data, centered with EmptyState component
+- [X] T093 [US5] Create charts section in dashboard in `src/app/dashboard/page.tsx`: add section above meals, two-column layout (donut + bar) on desktop, stacked on mobile
+- [X] T094 [US5] Add chart data preparation in dashboard in `src/app/dashboard/page.tsx`: extract macro values and meal calories from `nutritionData`, pass as props to charts
+- [X] T095 [US5] Add chart update animations in `src/components/charts/MacroDonutChart.tsx` and `MealBarChart.tsx`: animate data changes when date changes, use Recharts built-in animations
+- [X] T096 [US5] Add glassmorphism container to charts in `src/app/dashboard/page.tsx`: wrap charts in GlassCard components for cohesive design
 
 **Checkpoint**: All 5 user stories complete! Full application functionality delivered.
 

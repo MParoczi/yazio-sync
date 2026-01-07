@@ -20,6 +20,8 @@ import { GlassCard } from '../../components/ui/GlassCard';
 import { DailySummaryCard } from '../../components/dashboard/DailySummaryCard';
 import { MealSection } from '../../components/dashboard/MealSection';
 import { DateSelector } from '../../components/calendar/DateSelector';
+import { MacroDonutChart } from '../../components/charts/MacroDonutChart';
+import { MealBarChart } from '../../components/charts/MealBarChart';
 import { formatDate } from '../../utils/formatters';
 import { pageFadeIn, cardStagger } from '../../utils/animations';
 
@@ -190,6 +192,16 @@ export default function DashboardPage() {
                 summary={nutritionData.summary}
                 date={nutritionData.date}
               />
+
+              {/* Charts Section */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <GlassCard className="min-h-[400px]">
+                  <MacroDonutChart macros={nutritionData.summary.consumed} />
+                </GlassCard>
+                <GlassCard className="min-h-[400px]">
+                  <MealBarChart meals={nutritionData.meals} />
+                </GlassCard>
+              </div>
 
               {/* Meals Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
