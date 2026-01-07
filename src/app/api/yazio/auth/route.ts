@@ -6,7 +6,7 @@
  */
 
 import { NextRequest } from 'next/server';
-import { getTokenFromCredentials } from 'yazio/auth';
+import { YazioAuth } from 'yazio/auth';
 import { successResponse, errorResponse } from '@/lib/api/responses';
 import { validateCredentials } from '@/lib/api/validation';
 import { YazioApiError } from '@/lib/api/errors';
@@ -53,7 +53,8 @@ export async function POST(request: NextRequest) {
 
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
-        const token = await getTokenFromCredentials(credentials);
+        const auth = new YazioAuth({ credentials });
+        const token = await auth.authenticate();
         return successResponse({ token });
       } catch (error) {
         lastError = error as Error;

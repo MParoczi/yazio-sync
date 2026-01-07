@@ -76,14 +76,16 @@ export function validateDateString(dateStr: string): string {
  */
 export interface CredentialsInput {
   email?: unknown;
+  username?: unknown;
   password?: unknown;
 }
 
 /**
  * Validated credentials type
+ * Note: YAZIO uses 'username' but it's the user's email
  */
 export interface ValidatedCredentials {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -92,12 +94,15 @@ export interface ValidatedCredentials {
  *
  * @param input - Raw credentials input from request body
  * @returns Validated credentials with trimmed values
- * @throws BadRequestError if email or password is missing or invalid
+ * @throws BadRequestError if email/username or password is missing or invalid
  */
 export function validateCredentials(input: CredentialsInput): ValidatedCredentials {
-  const { email, password } = input;
+  const { email, username, password } = input;
 
-  if (!email || typeof email !== 'string' || email.trim().length === 0) {
+  // Accept either 'email' or 'username' field (YAZIO uses 'username')
+  const userEmail = email || username;
+
+  if (!userEmail || typeof userEmail !== 'string' || userEmail.trim().length === 0) {
     throw new BadRequestError('Email is required');
   }
 
@@ -107,12 +112,12 @@ export function validateCredentials(input: CredentialsInput): ValidatedCredentia
 
   // Basic email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  if (!emailRegex.test(userEmail)) {
     throw new BadRequestError('Invalid email format');
   }
 
   return {
-    email: email.trim(),
+    username: userEmail.trim(),
     password: password.trim(),
   };
 }

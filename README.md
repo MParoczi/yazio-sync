@@ -33,8 +33,14 @@ A modern, beautiful web application for viewing and tracking your YAZIO food int
 Before you begin, ensure you have the following installed:
 
 - **Node.js** 20.x or higher
-- **npm** or **yarn** package manager
+- **pnpm** package manager (v10.x or higher)
 - A **YAZIO account** with valid credentials
+
+To install pnpm if you don't have it:
+
+```bash
+npm install -g pnpm
+```
 
 ## Installation
 
@@ -48,9 +54,7 @@ cd yazio-sync
 2. **Install dependencies**
 
 ```bash
-npm install
-# or
-yarn install
+pnpm install
 ```
 
 3. **Set up environment variables** (if needed)
@@ -62,9 +66,7 @@ Create a `.env.local` file in the root directory if you need to configure any en
 Start the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
@@ -76,10 +78,10 @@ The development server includes:
 
 ## Available Scripts
 
-- **`npm run dev`** - Start the development server on http://localhost:3000
-- **`npm run build`** - Create an optimized production build
-- **`npm run start`** - Run the production server (requires `npm run build` first)
-- **`npm run lint`** - Run ESLint to check code quality
+- **`pnpm dev`** - Start the development server on http://localhost:3000
+- **`pnpm build`** - Create an optimized production build
+- **`pnpm start`** - Run the production server (requires `pnpm build` first)
+- **`pnpm lint`** - Run ESLint to check code quality
 
 ## Project Structure
 
@@ -192,10 +194,10 @@ The project includes configurations for:
 
 ```bash
 # Run unit tests
-npm run test
+pnpm test
 
 # Run E2E tests
-npm run test:e2e
+pnpm test:e2e
 ```
 
 ## Building for Production
@@ -203,7 +205,7 @@ npm run test:e2e
 1. **Create production build**
 
 ```bash
-npm run build
+pnpm build
 ```
 
 This creates an optimized build in `.next/` with:
@@ -215,7 +217,7 @@ This creates an optimized build in `.next/` with:
 2. **Start production server**
 
 ```bash
-npm run start
+pnpm start
 ```
 
 ## Deployment

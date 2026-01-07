@@ -10,33 +10,25 @@ This is a Next.js 16 application called "yazio-sync" that integrates with the YA
 
 ### Development Server
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 The dev server runs on http://localhost:3000 with hot module replacement.
 
 ### Build
 ```bash
-npm run build
-# or
-yarn build
+pnpm build
 ```
 Creates an optimized production build in `.next/`.
 
 ### Production Server
 ```bash
-npm run start
-# or
-yarn start
+pnpm start
 ```
-Runs the production build (must run `npm run build` first).
+Runs the production build (must run `pnpm build` first).
 
 ### Linting
 ```bash
-npm run lint
-# or
-yarn lint
+pnpm lint
 ```
 Uses ESLint 9 with Next.js TypeScript and Core Web Vitals configurations.
 

@@ -215,6 +215,7 @@ sketch
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.claude/settings.local.json
 
 # AWS User-specific
 .idea/**/aws.xml
