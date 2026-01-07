@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(if [ -d \"specs\" ])",
+      "Bash(then ls -d specs/*-food-intake-viewer)",
+      "Bash(else echo \"No specs directory\")",
+      "Bash(fi)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File:*)",
+      "Bash(npm info:*)",
+      "Bash(if [ -d \"C:\\Users\\shift\\Desktop\\PROJECTS\\yazioSync\\yazio-sync\\specs\\001-food-intake-viewer\\checklists\" ])",
+      "Bash(then echo \"exists\")",
+      "Bash(else echo \"not found\")",
+      "Bash(git rev-parse:*)",
+      "Bash(yarn add:*)",
+      "Bash(yarn build:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)"
+    ]
+  }
+}
