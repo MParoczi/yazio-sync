@@ -3,6 +3,7 @@
  * Displays a single meal with food items and summary
  */
 
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '../ui/GlassCard';
 import { FoodItemList } from './FoodItemList';
@@ -44,7 +45,7 @@ function capitalize(str: string): string {
  * MealSection Component
  * Shows meal header, items, and macro summary
  */
-export function MealSection({ meal }: MealSectionProps) {
+const MealSectionComponent = ({ meal }: MealSectionProps) => {
   const hasItems = meal.items.length > 0;
   const hasMacros = meal.summary.calories > 0;
 
@@ -99,4 +100,7 @@ export function MealSection({ meal }: MealSectionProps) {
       </GlassCard>
     </motion.div>
   );
-}
+};
+
+// Memoized export to prevent unnecessary re-renders
+export const MealSection = memo(MealSectionComponent);

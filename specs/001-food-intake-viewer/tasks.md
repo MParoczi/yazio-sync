@@ -277,7 +277,7 @@ Single Next.js project structure:
 - [X] T098 [P] Add stagger animations to meal sections in `src/app/dashboard/page.tsx`: animate meal cards sequentially with slight delay using Framer Motion
 - [X] T099 [P] Add hover animations to buttons in `src/components/ui/` and `src/components/auth/`: scale on hover, press feedback using Framer Motion or CSS transitions
 - [X] T100 [P] Add input focus animations in `src/components/auth/LoginForm.tsx`: smooth focus ring transitions, glassmorphism glow effect
-- [ ] T101 [P] Add loading skeleton animations to dashboard in `src/app/dashboard/page.tsx`: shimmer effect for DailySummaryCard and MealSections while loading
+- [X] T101 [P] Add loading skeleton animations to dashboard in `src/app/dashboard/page.tsx`: shimmer effect for DailySummaryCard and MealSections while loading
 
 ### Error Handling & Edge Cases
 
@@ -290,9 +290,9 @@ Single Next.js project structure:
 
 ### Performance Optimizations
 
-- [ ] T108 [P] Add React.memo to expensive components in `src/components/dashboard/MealSection.tsx`, `src/components/charts/`: prevent unnecessary re-renders
-- [ ] T109 [P] Add useMemo for macro calculations in `src/app/dashboard/page.tsx`: memoize summary calculations, meal totals
-- [ ] T110 [P] Add lazy loading for charts in `src/app/dashboard/page.tsx`: React.lazy() to code-split Recharts, load charts only when needed
+- [X] T108 [P] Add React.memo to expensive components in `src/components/dashboard/MealSection.tsx`, `src/components/charts/`: prevent unnecessary re-renders
+- [X] T109 [P] Add useMemo for macro calculations in `src/app/dashboard/page.tsx`: memoize summary calculations, meal totals
+- [X] T110 [P] Add lazy loading for charts in `src/app/dashboard/page.tsx`: React.lazy() to code-split Recharts, load charts only when needed
 - [ ] T111 [P] Optimize cache invalidation in `src/services/storage/cache.ts`: cleanup expired entries periodically, limit cache size
 - [X] T112 [P] Add debouncing to refresh button in `src/components/ui/RefreshButton.tsx`: prevent spam clicking, 1-second debounce
 
@@ -310,7 +310,7 @@ Single Next.js project structure:
 - [ ] T119 [P] Add JSDoc comments to all services in `src/services/`: document function parameters, return types, error conditions
 - [X] T120 [P] Add JSDoc comments to all hooks in `src/hooks/`: document hook usage, dependencies, return values
 - [ ] T121 [P] Add component prop documentation in `src/components/`: PropTypes or TypeScript interface comments
-- [ ] T122 [P] Update README.md with setup instructions, available scripts, architecture overview, deployment guide
+- [X] T122 [P] Update README.md with setup instructions, available scripts, architecture overview, deployment guide
 - [X] T123 [P] Code cleanup and formatting: run ESLint, fix warnings, ensure consistent code style across all files
 - [X] T124 [P] Remove console.log statements: clean up debug logs, replace with proper error handling or remove entirely
 

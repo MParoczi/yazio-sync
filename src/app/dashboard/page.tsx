@@ -5,7 +5,7 @@
  * Displays daily nutrition data with meals and summaries
  */
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CalendarIcon } from '@heroicons/react/24/outline';
@@ -20,10 +20,13 @@ import { GlassCard } from '../../components/ui/GlassCard';
 import { DailySummaryCard } from '../../components/dashboard/DailySummaryCard';
 import { MealSection } from '../../components/dashboard/MealSection';
 import { DateSelector } from '../../components/calendar/DateSelector';
-import { MacroDonutChart } from '../../components/charts/MacroDonutChart';
-import { MealBarChart } from '../../components/charts/MealBarChart';
+import { SkeletonDailySummary, SkeletonMealSection } from '../../components/ui/Skeleton';
 import { formatDate } from '../../utils/formatters';
 import { pageFadeIn, cardStagger } from '../../utils/animations';
+
+// Lazy load charts to reduce initial bundle size
+const MacroDonutChart = lazy(() => import('../../components/charts/MacroDonutChart').then(mod => ({ default: mod.MacroDonutChart })));
+const MealBarChart = lazy(() => import('../../components/charts/MealBarChart').then(mod => ({ default: mod.MealBarChart })));
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -32,6 +35,17 @@ export default function DashboardPage() {
   const { isOpen, openCalendar, closeCalendar, selectDate, goToToday, isToday } = useCalendar();
 
   const isTodaySelected = isToday(selectedDate);
+
+  /**
+   * Memoized macro and meals data to prevent recalculation on every render
+   */
+  const macroData = useMemo(() => {
+    return nutritionData?.summary.consumed;
+  }, [nutritionData?.summary.consumed]);
+
+  const mealsData = useMemo(() => {
+    return nutritionData?.meals || [];
+  }, [nutritionData?.meals]);
 
   // Pull-to-refresh state
   const [pullDistance, setPullDistance] = useState(0);
@@ -120,9 +134,42 @@ export default function DashboardPage() {
    */
   if (dataLoading && !nutritionData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
+      <motion.div
+        className="min-h-screen p-4 md:p-8"
+        variants={pageFadeIn}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8">
+            <div className="h-10 w-40 bg-white/10 rounded animate-pulse" />
+            <div className="flex gap-2">
+              <div className="h-10 w-32 bg-white/10 rounded animate-pulse" />
+              <div className="h-10 w-32 bg-white/10 rounded animate-pulse" />
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            {/* Daily Summary Skeleton */}
+            <SkeletonDailySummary />
+
+            {/* Charts Skeleton */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="glass-card min-h-[400px] animate-pulse" />
+              <div className="glass-card min-h-[400px] animate-pulse" />
+            </div>
+
+            {/* Meals Skeleton */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SkeletonMealSection />
+              <SkeletonMealSection />
+              <SkeletonMealSection />
+              <SkeletonMealSection />
+            </div>
+          </div>
+        </div>
+      </motion.div>
     );
   }
 
@@ -274,12 +321,16 @@ export default function DashboardPage() {
               >
                 <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.3 } } }}>
                   <GlassCard className="min-h-[400px]">
-                    <MacroDonutChart macros={nutritionData.summary.consumed} />
+                    <Suspense fallback={<div className="flex items-center justify-center h-full"><LoadingSpinner /></div>}>
+                      {macroData && <MacroDonutChart macros={macroData} />}
+                    </Suspense>
                   </GlassCard>
                 </motion.div>
                 <motion.div variants={{ hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.3 } } }}>
                   <GlassCard className="min-h-[400px]">
-                    <MealBarChart meals={nutritionData.meals} />
+                    <Suspense fallback={<div className="flex items-center justify-center h-full"><LoadingSpinner /></div>}>
+                      <MealBarChart meals={mealsData} />
+                    </Suspense>
                   </GlassCard>
                 </motion.div>
               </motion.div>

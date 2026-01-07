@@ -134,6 +134,28 @@ yazio-sync/
 
 ```
 
+## Architecture Overview
+
+### Frontend Architecture
+- **App Router**: Next.js 16 App Router for file-based routing and server components
+- **State Management**: React Context API for global state (Auth, Nutrition Data)
+- **Data Flow**: Unidirectional data flow with context providers
+- **Component Structure**: Atomic design with reusable UI components
+- **Type Safety**: Full TypeScript coverage with strict mode
+
+### Performance Optimizations
+- **Code Splitting**: Automatic route-based splitting + lazy loading for charts
+- **Memoization**: React.memo for expensive components, useMemo for calculations
+- **Caching**: In-memory cache for API responses (5-minute TTL)
+- **Optimized Images**: Next.js Image component for automatic optimization
+- **Bundle Size**: Tree shaking and dead code elimination
+
+### Security Features
+- **Token Encryption**: Web Crypto API (AES-GCM) for secure token storage
+- **Session Management**: Automatic token expiration detection
+- **Secure Storage**: Encrypted tokens in sessionStorage/localStorage
+- **XSS Protection**: React's built-in escaping + CSP headers
+
 ## Key Features in Detail
 
 ### Authentication

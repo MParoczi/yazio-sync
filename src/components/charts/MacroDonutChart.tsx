@@ -5,7 +5,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import type { MacroValues } from '@/types/nutrition';
 import { EmptyState } from '@/components/dashboard/EmptyState';
@@ -56,7 +56,7 @@ function CustomTooltip({ active, payload }: TooltipProps) {
   );
 }
 
-export function MacroDonutChart({ macros }: MacroDonutChartProps) {
+const MacroDonutChartComponent = ({ macros }: MacroDonutChartProps) => {
   // Check if there's any macro data
   const hasData = macros.carbohydrates > 0 || macros.protein > 0 || macros.fat > 0;
 
@@ -130,4 +130,7 @@ export function MacroDonutChart({ macros }: MacroDonutChartProps) {
       </div>
     </div>
   );
-}
+};
+
+// Memoized export to prevent unnecessary re-renders when parent updates
+export const MacroDonutChart = memo(MacroDonutChartComponent);

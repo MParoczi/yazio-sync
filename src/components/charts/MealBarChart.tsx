@@ -5,7 +5,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import {
   BarChart,
   Bar,
@@ -62,7 +62,7 @@ function CustomTooltip({ active, payload }: TooltipProps) {
   );
 }
 
-export function MealBarChart({ meals }: MealBarChartProps) {
+const MealBarChartComponent = ({ meals }: MealBarChartProps) => {
   // Check if there's any meal data
   const hasData = meals.some((meal) => meal.summary.calories > 0);
 
@@ -144,4 +144,7 @@ export function MealBarChart({ meals }: MealBarChartProps) {
       </div>
     </div>
   );
-}
+};
+
+// Memoized export to prevent unnecessary re-renders when parent updates
+export const MealBarChart = memo(MealBarChartComponent);
