@@ -217,17 +217,17 @@ Single Next.js project structure:
 
 ### Implementation for User Story 4
 
-- [ ] T074 [P] [US4] Implement txtExporter service in `src/services/export/txtExporter.ts`: `generateExportText()` function accepting array of `DailyNutritionData`, returning formatted string
-- [ ] T075 [US4] Add structured formatting to txtExporter in `src/services/export/txtExporter.ts`: header with date range, daily sections, meal subsections, indented food items, macro summaries at all levels
-- [ ] T076 [US4] Add empty state handling to txtExporter in `src/services/export/txtExporter.ts`: detect empty days, add "No data logged" messages, handle empty date ranges
-- [ ] T077 [P] [US4] Create useExport hook in `src/hooks/useExport.ts`: manage export state, fetch data for date range, call `generateExportText()`, trigger browser download
-- [ ] T078 [US4] Add date range validation to useExport in `src/hooks/useExport.ts`: end >= start, max 90-day range, show validation errors as toasts
-- [ ] T079 [US4] Add progress tracking to useExport in `src/hooks/useExport.ts`: show percentage for large exports, handle API rate limits with delays
-- [ ] T080 [P] [US4] Create DateRangePicker component in `src/components/calendar/DateRangePicker.tsx`: glassmorphism modal, start date selector, end date selector, validation messages, confirm button
-- [ ] T081 [US4] Integrate DateRangePicker with useExport in `src/components/calendar/DateRangePicker.tsx`: call `useExport().exportRange()` on confirm, show loading state, close on success
-- [ ] T082 [P] [US4] Create ExportButton component in `src/components/export/ExportButton.tsx`: button in dashboard header, opens DateRangePicker modal, glassmorphism styling
-- [ ] T083 [US4] Add export button to dashboard in `src/app/dashboard/page.tsx`: render ExportButton in header next to calendar and refresh
-- [ ] T084 [US4] Add download trigger to useExport in `src/hooks/useExport.ts`: create blob from text, generate download link, trigger click, cleanup, show success toast
+- [X] T074 [P] [US4] Implement txtExporter service in `src/services/export/txtExporter.ts`: `generateExportText()` function accepting array of `DailyNutritionData`, returning formatted string
+- [X] T075 [US4] Add structured formatting to txtExporter in `src/services/export/txtExporter.ts`: header with date range, daily sections, meal subsections, indented food items, macro summaries at all levels
+- [X] T076 [US4] Add empty state handling to txtExporter in `src/services/export/txtExporter.ts`: detect empty days, add "No data logged" messages, handle empty date ranges
+- [X] T077 [P] [US4] Create useExport hook in `src/hooks/useExport.ts`: manage export state, fetch data for date range, call `generateExportText()`, trigger browser download
+- [X] T078 [US4] Add date range validation to useExport in `src/hooks/useExport.ts`: end >= start, max 90-day range, show validation errors as toasts
+- [X] T079 [US4] Add progress tracking to useExport in `src/hooks/useExport.ts`: show percentage for large exports, handle API rate limits with delays
+- [X] T080 [P] [US4] Create DateRangePicker component in `src/components/calendar/DateRangePicker.tsx`: glassmorphism modal, start date selector, end date selector, validation messages, confirm button
+- [X] T081 [US4] Integrate DateRangePicker with useExport in `src/components/calendar/DateRangePicker.tsx`: call `useExport().exportRange()` on confirm, show loading state, close on success
+- [X] T082 [P] [US4] Create ExportButton component in `src/components/export/ExportButton.tsx`: button in dashboard header, opens DateRangePicker modal, glassmorphism styling
+- [X] T083 [US4] Add export button to dashboard in `src/app/dashboard/page.tsx`: render ExportButton in header next to calendar and refresh
+- [X] T084 [US4] Add download trigger to useExport in `src/hooks/useExport.ts`: create blob from text, generate download link, trigger click, cleanup, show success toast
 
 **Checkpoint**: User stories 1-4 complete. Users can export data while maintaining all previous functionality.
 
